@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SastaFlix - Movie Stream</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: #000000cc;
+    }
+
+    .movie-card {
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    .movie-card img {
+      height: 300px;
+      object-fit: cover;
+    }
+
+    footer {
+      background-color: #000;
+      color: #999;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">🎬 SastaFlix</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav text-uppercase">
+        <li class="nav-item"><a class="nav-link" href="#cartoon">Cartoon</a></li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Categories + Movies -->
+<div class="container mt-5">
+  {% for category in categories %}
+    <h1 class="mb-4 border-bottom pb-2">{{ category.name }}</h1>
+    <div class="row mb-5" id="cartoon">
+      {% for movie in category.movie_set.all %}
+        <div class="col-md-3 mb-4">
+          <div class="movie-card">
+            <img src="{{ movie.poster.url }}" class="img-fluid" alt="{{ movie.title }}">
+            <div class="p-3">
+              <h5 class="text-white">{{ movie.title }}</h5>
+              <a href="{{ movie.video_url }}" target="_blank" class="btn btn-sm btn-danger">▶ Watch Now</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>© 2025 SastaFlix | Designed by Faisal | All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

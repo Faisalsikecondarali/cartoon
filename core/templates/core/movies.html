@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Movies - CineFlix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding-top: 80px;
+    }
+
+    .navbar {
+      background-color: #000000e0;
+    }
+
+    .movie-card {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.03);
+    }
+
+    .movie-card img {
+      height: 300px;
+      object-fit: cover;
+    }
+
+    footer {
+      background-color: #000;
+      color: #bbb;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">🎬 CineFlix</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav text-uppercase">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Movies</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Cartoons</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Web Series</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Drama</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- All Movies Grid -->
+<div class="container">
+  <h2 class="mb-4 text-center border-bottom pb-2">All Movies</h2>
+  <div class="row">
+    {% for movie in movies %}
+      <div class="col-md-3 mb-4">
+        <div class="movie-card">
+          <img src="{{ movie.poster.url }}" class="img-fluid" alt="{{ movie.title }}">
+          <div class="p-3">
+            <h5 class="text-white">{{ movie.title }}</h5>
+            <p class="small text-muted">{{ movie.category.name }}</p>
+            <a href="{{ movie.video_url }}" target="_blank" class="btn btn-sm btn-danger">▶ Watch</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">No movies available yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>© 2025 CineFlix | Designed by Faisal | All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
